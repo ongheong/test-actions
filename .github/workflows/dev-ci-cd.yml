@@ -44,7 +44,7 @@ jobs:
 
       # Step 7: 빌드 결과물을 Artifact로 업로드
       - name: Upload build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build
           path: ./build
@@ -63,7 +63,7 @@ jobs:
 
       # Step 2: CI에서 업로드한 build artifact 다운로드
       - name: Download build artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build
 
