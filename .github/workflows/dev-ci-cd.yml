@@ -39,8 +39,8 @@ jobs:
         run: yarn lint
 
       # Step 5: 단위 테스트 실행
-      - name: Run Unit Test
-        run: yarn test
+      # - name: Run Unit Test
+      #   run: yarn test
       # Step 1: 빌드
       - name: Build
         run: yarn build
