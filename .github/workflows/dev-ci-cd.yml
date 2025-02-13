@@ -11,6 +11,7 @@ on: # develop 브랜치에 pr, push 될 때마다 action이 실행됩니다.
 jobs:
   ci:
     runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'  # pull request일 때만 실행
     steps:
       # Step 1: 소스코드 복사
       - name: Checkout source code
@@ -54,6 +55,7 @@ jobs:
           path: ./dist
   cd:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'  # push일 때만 실행
     needs: ci
     steps:
       # Step 1: AWS 인증
