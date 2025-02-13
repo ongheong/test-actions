@@ -69,12 +69,18 @@ jobs:
       - uses: actions/download-artifact@v4
         with:
           name: build
+      
+      # Step 3: 압축 해제
+      - name: Unzip artifact
+        run: |
+          rm -rf ./dist  # 기존 dist 폴더 삭제
+          unzip -q build.zip -d .  # 압축 해제
 
-      # Step 3: AWS S3에 빌드 결과물 배포
+      # Step 4: AWS S3에 빌드 결과물 배포
       - name: Deploy to S3
         # vite project의 경우 dist 폴더에 파일이 들어 있음
         run: aws s3 sync ./dist s3://${{ secrets.AWS_BUCKET_NAME }} --delete
 
-      # Step 4: CloudFront 캐시 무효화 -> 캐시 서버가 새로운 배포 결과물을 저장할 수 있도록 배포 시마다 캐시 무효화 진행
+      # Step 5: CloudFront 캐시 무효화 -> 캐시 서버가 새로운 배포 결과물을 저장할 수 있도록 배포 시마다 캐시 무효화 진행
       - name: Invalidate CloudFront Cache
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID }} --paths "/*"
