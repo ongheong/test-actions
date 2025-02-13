@@ -53,11 +53,20 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           # 지역은 ap-northest-2로 생성함
           aws-region: ${{ secrets.AWS_REGION }}
+<<<<<<< Updated upstream
+=======
+      
+      # Step 2: 빌드 결과물 다운로드
+      - uses: actions/download-artifact@v4
+        with:
+          name: build
+          path: ./build
+>>>>>>> Stashed changes
 
       # Step 3: AWS S3에 빌드 결과물 배포
       - name: Deploy to S3
         # vite project의 경우 dist 폴더에 파일이 들어 있음
-        run: aws s3 sync ./dist s3://${{ secrets.AWS_BUCKET_NAME }} --delete
+        run: aws s3 sync ./build s3://${{ secrets.AWS_BUCKET_NAME }} --delete
 
       # Step 4: CloudFront 캐시 무효화 -> 캐시 서버가 새로운 배포 결과물을 저장할 수 있도록 배포 시마다 캐시 무효화 진행
       - name: Invalidate CloudFront Cache
