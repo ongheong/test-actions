@@ -56,7 +56,6 @@ jobs:
   cd:
     runs-on: ubuntu-latest
     if: github.event_name == 'push'  # push일 때만 실행
-    needs: ci
     steps:
       # Step 1: AWS 인증
       - name: Configure AWS Credentials
